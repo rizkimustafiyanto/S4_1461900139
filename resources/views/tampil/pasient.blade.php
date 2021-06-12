@@ -22,12 +22,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Siswa</h1>
+            <h1>Data Pasien</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Siswa</li>
+              <li class="breadcrumb-item active">Pasien</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,6 +35,7 @@
     </div>
     <!-- /.content-header -->
 
+    <!-- Main content -->
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
@@ -42,40 +43,44 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">DataTable Siswa</h3>
+            <h3 class="card-title">Data Pasien</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="example2" class="table table-bordered table-hover">
               <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+                <?php $no=1; ?>
+                @foreach ($Pasien as $psn)
                 <tr>
-                  <th>No</th>
-                  <th>Nama</th>
-                  <th>Alamat</th>
-                  <th>Action</th>
+                  <td>{{$no++}}</td>
+                  <td>{{$psn->nama}}</td>
+                  <td>{{$psn->alamat}}</td>
+                  <td>
+                    <form action="{{route('pasien.destroy',$psn->id)}}" method="POST">
+                      <a class="btn btn-primary btn-sm" href="{{ route('pasien.edit',$psn->id) }}">Edit</a>
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                  </form>
+                  </td>
                 </tr>
-                </thead>
-                <tbody>
-                  <?php $no=1; ?>
-                  @foreach ($siswa as $sa)
-                  <tr>
-                    <td>{{$no++}}</td>
-                    <td>{{$sa->nama}}</td>
-                    <td>{{$sa->alamat}}</td>
-                    <td>
-                      <a href="#" class="btn btn-sm btn-info">Edit</a>
-                      |
-                      <a href="#" class="btn btn-sm btn-danger">Hapus</a>
-                    </td>
-                  </tr>
-                  @endforeach
+                @endforeach
               </tbody>
               <tfoot>
               <tr>
-                  <th>No</th>
-                  <th>Nama</th>
-                  <th>Alamat</th>
-                  <th><a href="{{route('siswa.create')}}" class="btn btn-sm btn-info">Tambah</a></th>
+                <th colspan="3" style="text-align: center">Tombol tambah data</th>
+                <th>
+                  <a href="{{route('pasien.create')}}" class="btn btn-sm btn-info">Tambah</a>
+                  <a href="{{url('exportpasien')}}" class="btn btn-sm btn-info">Export File</a>
+                </th>
               </tr>
               </tfoot>
             </table>
@@ -92,8 +97,6 @@
   <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-
-    <!-- /.content -->
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

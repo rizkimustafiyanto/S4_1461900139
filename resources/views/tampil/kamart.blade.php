@@ -65,14 +65,9 @@
                   <td>{{$kmr->namad}}</td>
                   <td>
                     <form action="{{route('kamar.destroy',$kmr->id)}}" method="POST">
- 
-                      <a class="btn btn-info btn-sm" href="{{route('kamar.show',$kmr->id)}}">Show</a>
-   
                       <a class="btn btn-primary btn-sm" href="{{ route('kamar.edit',$kmr->id) }}">Edit</a>
-   
                       @csrf
                       @method('DELETE')
-   
                       <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
                   </form>
                   </td>
@@ -84,7 +79,7 @@
                 <th colspan="3" style="text-align: center">Tombol tambah data</th>
                 <th>
                   <a href="{{route('kamar.create')}}" class="btn btn-sm btn-info">Tambah</a>
-                  <a href="{{url('exportkamar')}}" class="btn btn-sm btn-info">File XLS</a>
+                  <a href="{{url('exportkamar')}}" class="btn btn-sm btn-info">Export File</a>
                 </th>
               </tr>
               </tfoot>

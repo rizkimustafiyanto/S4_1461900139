@@ -1,4 +1,22 @@
-<div class="content-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @include('part/head')
+</head>
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+    @include('part/proses/opening')
+
+  <!-- Navbar -->
+    @include('part/navbar')
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+    @include('part/side')
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -9,7 +27,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Create Siswa</li>
+              <li class="breadcrumb-item active">Create Pasien</li>
             </ol>
           </div>
         </div>
@@ -25,19 +43,20 @@
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Create Data Siswa<small> Validation Input</small></h3>
+                <h3 class="card-title">Create Data Pasien</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm">
+              <form id="quickForm" method="POST" action="{{route('pasien.store')}}">
+                {{ csrf_field() }}
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Nama</label>
-                    <input type="email" name="email" class="form-control" id="" placeholder="Masukkan nama anda">
+                    <label for="exampleInputnama1">Nama</label>
+                    <input type="text" name="nama" class="form-control" id="exampleInputnama1" placeholder="Masukkan nama pasien">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Mengajar</label>
-                    <input type="Text" name="mengajar" class="form-control" id="" placeholder="Bagian Matakuliah">
+                    <label for="exampleInputalamat1">Alamat</label>
+                    <input type="Text" name="alamat" class="form-control" id="exampleInputalamat1" placeholder="Masukkan alamat pasien">
                   </div>
                   <div class="form-group mb-0">
                     <div class="custom-control custom-checkbox">
@@ -66,3 +85,87 @@
     </section>
     <!-- /.content -->
   </div>
+ <!-- Main content -->
+
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+    @include('part/foot')
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src={{asset("administrator/plugins/jquery/jquery.min.js")}}></script>
+<!-- Bootstrap -->
+<script src={{asset("administrator/plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
+<!-- overlayScrollbars -->
+<script src={{asset("administrator/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
+<!-- AdminLTE App -->
+<script src={{asset("administrator/dist/js/adminlte.js")}}></script>
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src={{asset("administrator/plugins/jquery-mousewheel/jquery.mousewheel.js")}}></script>
+<script src={{asset("administrator/plugins/raphael/raphael.min.js")}}></script>
+<script src={{asset("administrator/plugins/jquery-mapael/jquery.mapael.min.js")}}></script>
+<script src={{asset("administrator/plugins/jquery-mapael/maps/usa_states.min.js")}}></script>
+<!-- ChartJS -->
+<script src={{asset("administrator/plugins/chart.js/Chart.min.js")}}></script>
+
+<!-- AdminLTE for demo purposes -->
+<script src={{asset("administrator/dist/js/demo.js")}}></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src={{asset("administrator/dist/js/pages/dashboard2.js")}}></script>
+<script>
+  $(function () {
+    $.validator.setDefaults({
+      submitHandler: function () {
+        alert( "Form successful submitted!" );
+      }
+    });
+    $('#quickForm').validate({
+      rules: {
+        nama: {
+          required: true
+        },
+        alamat: {
+          required: true,
+          minlength: 3
+        },
+        terms: {
+          required: true
+        },
+      },
+      messages: {
+        nama: {
+          required: "Tolong masukkan nama"
+        },
+        alamat: {
+          required: "Tolong isi anda alamat apa",
+          minlength: "Masukkan pelajaran paling sedikit 3"
+        },
+        terms: "Tolong centang apabila yakin ingin menambah"
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  });
+  </script>
+</body>
+</html>

@@ -63,7 +63,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputnama1">Nama</label>
-                    <input type="text" name="nama" class="form-control" value="{{$dokter->nama}}" placeholder="Masukkan nama anda" value="">
+                    <input type="text" name="nama" class="form-control" value="{{$dokter->nama}}" placeholder="Masukkan nama anda">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputjabatan1">Jabatan</label>

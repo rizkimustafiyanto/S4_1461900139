@@ -18,6 +18,8 @@ class pasienController extends Controller
     public function index()
     {
         //
+        $data = Pasien::All();
+        return view('tampil.pasient' , ['Pasien' => $data]);
     }
 
     /**
@@ -28,6 +30,7 @@ class pasienController extends Controller
     public function create()
     {
         //
+        return view('form.newpasien');
     }
 
     /**
@@ -39,15 +42,26 @@ class pasienController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        DB::table('pasien')->insert([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat
+        ]);
+        // alihkan halaman ke halaman pasien
+        return redirect()->route('pasien.index')->with('Success','Data pasien Berhasil Ditambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  Pasien $pasien
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pasien $pasien)
     {
         //
     }
@@ -55,35 +69,50 @@ class pasienController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  Pasien $pasien
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pasien $pasien)
     {
         //
+        return view('edita.editpasien', compact('pasien'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  Pasien $pasien
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pasien $pasien)
     {
         //
+        $request->validate([
+            'nama' => 'required',   
+            'alamat' => 'required',
+        ]);
+
+        $pasien->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat
+        ]);
+
+        // alihkan halaman ke halaman pasien
+        return redirect()->route('pasien.index')->with('Success','Data pasien Berhasil Diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  Pasien $pasien
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pasien $pasien)
     {
         //
+        $pasien->delete();
+        return redirect()->route('pasien.index')->with('Success','Data pasien Berhasil Dihapus');
     }
     public function export()
     {
